@@ -71,66 +71,58 @@ namespace _4.Using_the_Task_Parallel
         #endregion
 
         #region 4.3.Task的协作
-        static void Main(string[] args)
-        {
-            //var firstTask = new Task<int>(() => TaskMethod("First Task", 3));
-            //firstTask.ContinueWith(
-            //    t => WriteLine(
-            //        $"The first answer is {t.Result}. Thread id " +
-            //        $"{CurrentThread.ManagedThreadId}, is thread pool thread: " +
-            //        $"{CurrentThread.IsThreadPoolThread}"),
-            //    TaskContinuationOptions.OnlyOnRanToCompletion);
-            //firstTask.Start();
+        //static void Main(string[] args)
+        //{
+        //    //var firstTask = new Task<int>(() => TaskMethod("First Task", 3));
+        //    //firstTask.ContinueWith(
+        //    //    t => WriteLine(
+        //    //        $"The first answer is {t.Result}. Thread id " +
+        //    //        $"{CurrentThread.ManagedThreadId}, is thread pool thread: " +
+        //    //        $"{CurrentThread.IsThreadPoolThread}"),
+        //    //    TaskContinuationOptions.OnlyOnRanToCompletion);
+        //    //firstTask.Start();
 
-            //var secondTask = new Task<int>(() => TaskMethod("Second Task", 2));
-            //secondTask.Start();
-            //Task continuation = secondTask.ContinueWith(
-            //    t => WriteLine(
-            //        $"The second answer is {t.Result}. Thread id " +
-            //        $"{CurrentThread.ManagedThreadId}, is thread pool thread: " +
-            //        $"{CurrentThread.IsThreadPoolThread}"),
-            //    TaskContinuationOptions.OnlyOnRanToCompletion);
-            //    //| TaskContinuationOptions.ExecuteSynchronously);
-            //continuation.GetAwaiter().OnCompleted(
-            //    () => WriteLine(
-            //        $"Continuation Task Completed! Thread id " +
-            //        $"{CurrentThread.ManagedThreadId}, is thread pool thread: " +
-            //        $"{CurrentThread.IsThreadPoolThread}"));
+        //    //while (!firstTask.IsCompleted)
+        //    //{
+        //    //    WriteLine(firstTask.Status);
+        //    //    Sleep(TimeSpan.FromSeconds(0.5));
+        //    //}
+        //    //WriteLine(firstTask.Status);
 
-            var firstTask = new Task<int>(() =>
-            {
-                var childTask = Task.Factory.StartNew(() => TaskMethod("Child Task", 5),
-                    TaskCreationOptions.AttachedToParent);
+        //    var firstTask = new Task<int>(() =>
+        //    {
+        //        var childTask = Task.Factory.StartNew(() => TaskMethod("Child Task", 5),
+        //            TaskCreationOptions.AttachedToParent);
 
-                childTask.ContinueWith(t => TaskMethod("Child Task Continue", 2),
-                    TaskContinuationOptions.AttachedToParent);
+        //        childTask.ContinueWith(t => TaskMethod("Child Task Continue", 2),
+        //            TaskContinuationOptions.AttachedToParent);
 
-                return TaskMethod("Parent Task", 2);
-            });
+        //        return TaskMethod("Parent Task", 2);
+        //    });
 
-            firstTask.Start();
+        //    firstTask.Start();
 
-            while (!firstTask.IsCompleted)
-            {
-                WriteLine(firstTask.Status);
-                Sleep(TimeSpan.FromSeconds(0.5));
-            }
-            WriteLine(firstTask.Status);
+        //    while (!firstTask.IsCompleted)
+        //    {
+        //        WriteLine(firstTask.Status);
+        //        Sleep(TimeSpan.FromSeconds(0.5));
+        //    }
+        //    WriteLine(firstTask.Status);
 
-            //Sleep(TimeSpan.FromSeconds(10));
-            WriteLine("End");
-            ReadLine();
-        }
-        static int TaskMethod(string name, int seconds)
-        {
-            WriteLine(
-                $"{name} is running on a thread id " +
-                $"{CurrentThread.ManagedThreadId}. Is thread pool thread: " +
-                $"{CurrentThread.IsThreadPoolThread}");
-            Sleep(TimeSpan.FromSeconds(seconds));
-            WriteLine(name + " finished");
-            return 1 * seconds;
-        }
+        //    Sleep(TimeSpan.FromSeconds(10));
+        //    //WriteLine("End");
+        //    ReadLine();
+        //}
+        //static int TaskMethod(string name, int seconds)
+        //{
+        //    WriteLine(
+        //        $"{name} is running on a thread id " +
+        //        $"{CurrentThread.ManagedThreadId}. Is thread pool thread: " +
+        //        $"{CurrentThread.IsThreadPoolThread}");
+        //    Sleep(TimeSpan.FromSeconds(seconds));
+        //    WriteLine(name + " finished");
+        //    return 1 * seconds;
+        //}
         #endregion
 
         #region 4.4.Task的取消
@@ -179,90 +171,43 @@ namespace _4.Using_the_Task_Parallel
         #endregion
 
         #region 4.5.Task异常处理
-        //static void Main(string[] args)
-        //{
-        //    //Task<int> task;
-        //    //try
-        //    //{
-        //    //    task = Task.Run(() => TaskMethod("Task 1", 1));
-        //    //    //int result = task.Result;
-        //    //    //WriteLine($"Result: {result}");
-        //    //}
-        //    //catch (Exception ex)
-        //    //{
-        //    //    WriteLine($"Exception caught: {ex}");
-        //    //}
+        static void Main(string[] args)
+        {
+            //Task<int> task;
+            //try
+            //{
+            //    task = Task.Run(() => TaskMethod("Task 1", 1));
+            //    //int result = task.Result;
+            //    //WriteLine($"Result: {result}");
+            //}
+            //catch (Exception ex)
+            //{
+            //    WriteLine($"Exception caught: {ex}");
+            //}
 
-        //    var t1 = new Task<int>(() => TaskMethod("Task 3", 3));
-        //    var t2 = new Task<int>(() => TaskMethod("Task 4", 2));
-        //    var complexTask = Task.WhenAll(t1, t2);
-        //    var exceptionHandler = complexTask.ContinueWith(t =>
-        //            WriteLine($"Exception caught: {t.Exception}"),
-        //            TaskContinuationOptions.OnlyOnFaulted
-        //        );
-        //    t1.Start();
-        //    t2.Start();
+            var t1 = new Task<int>(() => TaskMethod("Task 3", 3));
+            var t2 = new Task<int>(() => TaskMethod("Task 4", 2));
+            var complexTask = Task.WhenAll(t1, t2);
+            var exceptionHandler = complexTask.ContinueWith(t =>
+                    WriteLine($"Exception caught: {t.Exception}"),
+                    TaskContinuationOptions.OnlyOnFaulted
+                );
+            t1.Start();
+            t2.Start();
 
-        //    Console.ReadLine();
-        //}
-        //static int TaskMethod(string name, int seconds)
-        //{
-        //    WriteLine(
-        //        $"Task {name} is running on a thread id " +
-        //        $"{CurrentThread.ManagedThreadId}. Is thread pool thread: " +
-        //        $"{CurrentThread.IsThreadPoolThread}");
+            Console.ReadLine();
+        }
+        static int TaskMethod(string name, int seconds)
+        {
+            WriteLine(
+                $"Task {name} is running on a thread id " +
+                $"{CurrentThread.ManagedThreadId}. Is thread pool thread: " +
+                $"{CurrentThread.IsThreadPoolThread}");
 
-        //    Sleep(TimeSpan.FromSeconds(seconds));
-        //    throw new Exception("Boom!");
-        //    //return 42 * seconds;
-        //}
-        #endregion
-
-        #region 4.6.Task并行
-        //static void Main(string[] args)
-        //{
-        //    //var firstTask = new Task<int>(() => TaskMethod("First Task", 3));
-        //    //var secondTask = new Task<int>(() => TaskMethod("Second Task", 2));
-        //    //var whenAllTask = Task.WhenAll(firstTask, secondTask);
-
-        //    //whenAllTask.ContinueWith(t =>
-        //    //    WriteLine($"The first answer is {t.Result[0]}, the second is {t.Result[1]}"),
-        //    //    TaskContinuationOptions.OnlyOnRanToCompletion);
-
-        //    //firstTask.Start();
-        //    //secondTask.Start();
-
-        //    //Sleep(TimeSpan.FromSeconds(4));
-
-        //    var tasks = new List<Task<int>>();
-        //    for (int i = 1; i < 4; i++)
-        //    {
-        //        int counter = i;
-        //        var task = new Task<int>(() => TaskMethod($"Task {counter}", counter));
-        //        tasks.Add(task);
-        //        task.Start();
-        //    }
-
-        //    while (tasks.Count > 0)
-        //    {
-        //        var completedTask = Task.WhenAny(tasks).Result;
-        //        tasks.Remove(completedTask);
-        //        WriteLine($"A task has been completed with result {completedTask.Result}.");
-        //    }
-
-        //    //Sleep(TimeSpan.FromSeconds(1));
-        //    Console.ReadLine();
-        //}
-        //static int TaskMethod(string name, int seconds)
-        //{
-        //    WriteLine(
-        //        $"Task {name} is running on a thread id " +
-        //        $"{CurrentThread.ManagedThreadId}. Is thread pool thread: " +
-        //        $"{CurrentThread.IsThreadPoolThread}");
-
-        //    Sleep(TimeSpan.FromSeconds(seconds));
-        //    return 42 * seconds;
-        //}
+            Sleep(TimeSpan.FromSeconds(seconds));
+            throw new Exception("Boom!");
+            //return 42 * seconds;
+        }
         #endregion
     }
 }

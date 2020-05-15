@@ -12,21 +12,21 @@ namespace _1.Threading_Basics
     class Program
     {
         #region 1.1.线程创建
-        static void Main(string[] args)
-        {
-            Thread t = new Thread(PrintNumbers);
-            t.Start();
-            PrintNumbers();
-            Console.ReadLine();
-        }
-        static void PrintNumbers()
-        {
-            WriteLine("Starting...");
-            for (int i = 1; i < 10; i++)
-            {
-                WriteLine(i);
-            }
-        }
+        //static void Main(string[] args)
+        //{
+        //    Thread t = new Thread(PrintNumbers);
+        //    t.Start();
+        //    PrintNumbers();
+        //    Console.ReadLine();
+        //}
+        //static void PrintNumbers()
+        //{
+        //    WriteLine("Starting...");
+        //    for (int i = 1; i < 10; i++)
+        //    {
+        //        WriteLine(i);
+        //    }
+        //}
         #endregion
 
         #region 1.2.线程睡眠
@@ -96,8 +96,8 @@ namespace _1.Threading_Basics
         //    t.Start();
         //    t2.Start();
 
-        //    //t.Join();
-        //    //t2.Join();
+        //    t.Join();
+        //    t2.Join();
 
         //    Sleep(TimeSpan.FromSeconds(6));
         //    t.Abort();
@@ -105,7 +105,6 @@ namespace _1.Threading_Basics
         //}
         //static void DoNothing()
         //{
-        //    Thread.CurrentThread.Priority
         //    Sleep(TimeSpan.FromSeconds(2));
         //}
         //static void PrintNumbersWithStatus()
@@ -252,9 +251,9 @@ namespace _1.Threading_Basics
         //    threadFour.Start();
         //    threadFive.Start();
 
-        //    for (int i = 0; i < 10; i++)
+        //    for (int j = 0; j < 10; j++)
         //    {
-        //        new Thread(() => Console.WriteLine(i)).Start();
+        //        new Thread(() => Console.WriteLine(j)).Start();
         //    }
 
         //    Console.ReadLine();
@@ -467,7 +466,7 @@ namespace _1.Threading_Basics
 
         //static void Main(string[] args)
         //{
-        //    NoSleep();  
+        //    NoSleep();
         //    ThreadSleepInThread();
         //    SpinWaitInThread();
         //    Console.ReadLine();
@@ -510,7 +509,7 @@ namespace _1.Threading_Basics
         //        var sw = Stopwatch.StartNew();
         //        for (long i = 0; i < _count; i++)
         //        {
-        //           System.Threading.SpinWait.SpinUntil(() => true, _timeout_ms);
+        //            System.Threading.SpinWait.SpinUntil(() => true, _timeout_ms);
         //        }
         //        Console.WriteLine("SpinWait Consume Time:{0}", sw.Elapsed.ToString());
         //    });

@@ -130,7 +130,7 @@ namespace _2.Thread_Synchronization
         #region 2.4.AutoResetEvent
 
         //private static AutoResetEvent carEvent = new AutoResetEvent(false);
-        //private static ManualResetEvent carEvent = new ManualResetEvent(false);
+        ////private static ManualResetEvent carEvent = new ManualResetEvent(false);
 
         //static void Main()
         //{
@@ -164,41 +164,7 @@ namespace _2.Thread_Synchronization
 
         #endregion
 
-        #region 2.5.ManualResetEventSlim
-
-        //static ManualResetEventSlim _mainEvent = new ManualResetEventSlim(false);
-        //static void Main(string[] args)
-        //{
-        //    var t1 = new Thread(() => TravelThroughGates("Thread 1", 5));
-        //    var t2 = new Thread(() => TravelThroughGates("Thread 2", 6));
-        //    var t3 = new Thread(() => TravelThroughGates("Thread 3", 12));
-        //    t1.Start();
-        //    t2.Start();
-        //    t3.Start();
-        //    Sleep(TimeSpan.FromSeconds(6));
-        //    WriteLine("The gates are now open!");
-        //    _mainEvent.Set();
-        //    Sleep(TimeSpan.FromSeconds(2));
-        //    _mainEvent.Reset();
-        //    WriteLine("The gates have been closed!");
-        //    Sleep(TimeSpan.FromSeconds(10));
-        //    WriteLine("The gates are now open for the second time!");
-        //    _mainEvent.Set();
-        //    Sleep(TimeSpan.FromSeconds(2));
-        //    WriteLine("The gates have been closed!");
-        //    _mainEvent.Reset();
-        //}
-        //static void TravelThroughGates(string threadName, int seconds)
-        //{
-        //    WriteLine($"{threadName} falls to sleep");
-        //    Sleep(TimeSpan.FromSeconds(seconds));
-        //    WriteLine($"{threadName} waits for the gates to open!");
-        //    _mainEvent.Wait();
-        //    WriteLine($"{threadName} enters the gates!");
-        //}
-        #endregion
-
-        #region 2.6.CountDownEvent
+        #region 2.5.CountDownEvent
         //static CountdownEvent _countdown = new CountdownEvent(2);
         //static void Main(string[] args)
         //{
@@ -219,7 +185,7 @@ namespace _2.Thread_Synchronization
         //}
         #endregion
 
-        #region 2.7.Barrier
+        #region 2.6.Barrier
 
         //static Barrier barrier = new Barrier(2, b => WriteLine($"song {b.CurrentPhaseNumber} finished"));
         //static void Main(string[] args)
@@ -246,70 +212,70 @@ namespace _2.Thread_Synchronization
         //}
         #endregion
 
-        #region 2.8.ReaderWriterLockSlim
-        static ReaderWriterLockSlim _rw = new ReaderWriterLockSlim();
-        static Dictionary<int, int> _items = new Dictionary<int, int>();
+        #region 2.7.ReaderWriterLockSlim
+        //static ReaderWriterLockSlim _rw = new ReaderWriterLockSlim();
+        //static Dictionary<int, int> _items = new Dictionary<int, int>();
 
-        static void Main(string[] args)
-        {
-            new Thread(Read) { IsBackground = true }.Start();
-            new Thread(Read) { IsBackground = true }.Start();
-            new Thread(Read) { IsBackground = true }.Start();
+        //static void Main(string[] args)
+        //{
+        //    new Thread(Read) { IsBackground = true }.Start();
+        //    new Thread(Read) { IsBackground = true }.Start();
+        //    new Thread(Read) { IsBackground = true }.Start();
 
-            new Thread(() => Write("Thread 1")) { IsBackground = true }.Start();
-            new Thread(() => Write("Thread 2")) { IsBackground = true }.Start();
+        //    new Thread(() => Write("Thread 1")) { IsBackground = true }.Start();
+        //    new Thread(() => Write("Thread 2")) { IsBackground = true }.Start();
 
-            Sleep(TimeSpan.FromSeconds(30));
-        }
-        static void Read()
-        {
-            WriteLine("Reading contents of a dictionary");
-            while (true)
-            {
-                try
-                {
-                    _rw.EnterReadLock();
-                    foreach (var key in _items.Keys)
-                    {
-                        Sleep(TimeSpan.FromSeconds(0.1));
-                    }
-                }
-                finally
-                {
-                    _rw.ExitReadLock();
-                }
-            }
-        }
+        //    Sleep(TimeSpan.FromSeconds(30));
+        //}
+        //static void Read()
+        //{
+        //    WriteLine("Reading contents of a dictionary");
+        //    while (true)
+        //    {
+        //        try
+        //        {
+        //            _rw.EnterReadLock();
+        //            foreach (var key in _items.Keys)
+        //            {
+        //                Sleep(TimeSpan.FromSeconds(0.1));
+        //            }
+        //        }
+        //        finally
+        //        {
+        //            _rw.ExitReadLock();
+        //        }
+        //    }
+        //}
 
-        static void Write(string threadName)
-        {
-            while (true)
-            {
-                try
-                {
-                    int newKey = new Random().Next(250);
-                    _rw.EnterUpgradeableReadLock();
-                    if (!_items.ContainsKey(newKey))
-                    {
-                        try
-                        {
-                            _rw.EnterWriteLock();
-                            _items[newKey] = 1;
-                            WriteLine($"New key {newKey} is added to a dictionary by a {threadName}");
-                        }
-                        finally
-                        {
-                            _rw.ExitWriteLock();
-                        }
-                    }
-                    Sleep(TimeSpan.FromSeconds(0.1));
-                }
-                finally
-                {
-                    _rw.ExitUpgradeableReadLock();
-                }
-            }
-        }
+        //static void Write(string threadName)
+        //{
+        //    while (true)
+        //    {
+        //        try
+        //        {
+        //            int newKey = new Random().Next(250);
+        //            _rw.EnterUpgradeableReadLock();
+        //            if (!_items.ContainsKey(newKey))
+        //            {
+        //                try
+        //                {
+        //                    _rw.EnterWriteLock();
+        //                    _items[newKey] = 1;
+        //                    WriteLine($"New key {newKey} is added to a dictionary by a {threadName}");
+        //                }
+        //                finally
+        //                {
+        //                    _rw.ExitWriteLock();
+        //                }
+        //            }
+        //            Sleep(TimeSpan.FromSeconds(0.1));
+        //        }
+        //        finally
+        //        {
+        //            _rw.ExitUpgradeableReadLock();
+        //        }
+        //    }
+        //}
         #endregion
     }
 }
