@@ -12,21 +12,21 @@ namespace _1.Threading_Basics
     class Program
     {
         #region 1.1.线程创建
-        //static void Main(string[] args)
-        //{
-        //    Thread t = new Thread(PrintNumbers);
-        //    t.Start();
-        //    PrintNumbers();
-        //    Console.ReadLine();
-        //}
-        //static void PrintNumbers()
-        //{
-        //    WriteLine("Starting...");
-        //    for (int i = 1; i < 10; i++)
-        //    {
-        //        WriteLine(i);
-        //    }
-        //}
+        static void Main(string[] args)
+        {
+            Thread t = new Thread(PrintNumbers);
+            t.Start();
+            PrintNumbers();
+            Console.ReadLine();
+        }
+        static void PrintNumbers()
+        {
+            WriteLine("Starting...");
+            for (int i = 1; i < 10; i++)
+            {
+                WriteLine(i);
+            }
+        }
         #endregion
 
         #region 1.2.线程睡眠

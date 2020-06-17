@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
+using System.Threading.Tasks;
 using static System.Console;
 using static System.Threading.Thread;
 
@@ -276,6 +278,16 @@ namespace _2.Thread_Synchronization
         //        }
         //    }
         //}
+        #endregion
+
+        #region 2.8 Producer/Consumer
+
+        static void Main()
+        {
+            Form1 form1 = new Form1();
+            form1.ShowDialog();
+        }
+
         #endregion
     }
 }
