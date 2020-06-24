@@ -12,21 +12,21 @@ namespace _1.Threading_Basics
     class Program
     {
         #region 1.1.线程创建
-        static void Main(string[] args)
-        {
-            Thread t = new Thread(PrintNumbers);
-            t.Start();
-            PrintNumbers();
-            Console.ReadLine();
-        }
-        static void PrintNumbers()
-        {
-            WriteLine("Starting...");
-            for (int i = 1; i < 10; i++)
-            {
-                WriteLine(i);
-            }
-        }
+        //static void Main(string[] args)
+        //{
+        //    Thread t = new Thread(PrintNumbers);
+        //    t.Start();
+        //    PrintNumbers();
+        //    Console.ReadLine();
+        //}
+        //static void PrintNumbers()
+        //{
+        //    WriteLine("Starting...");
+        //    for (int i = 1; i < 10; i++)
+        //    {
+        //        WriteLine(i);
+        //    }
+        //}
         #endregion
 
         #region 1.2.线程睡眠
@@ -461,61 +461,61 @@ namespace _1.Threading_Basics
 
         #region 1.12.自旋锁
 
-        //private static long _count = 10000;
-        //private static int _timeout_ms = 0;
+        private static long _count = 10000000;
+        private static int _timeout_ms = 0;
 
-        //static void Main(string[] args)
-        //{
-        //    NoSleep();
-        //    ThreadSleepInThread();
-        //    SpinWaitInThread();
-        //    Console.ReadLine();
-        //}
+        static void Main(string[] args)
+        {
+            NoSleep();
+            ThreadSleepInThread();
+            SpinWaitInThread();
+            Console.ReadLine();
+        }
 
-        //private static void NoSleep()
-        //{
-        //    Thread thread = new Thread(() =>
-        //    {
-        //        var sw = Stopwatch.StartNew();
-        //        for (long i = 0; i < _count; i++)
-        //        {
+        private static void NoSleep()
+        {
+            Thread thread = new Thread(() =>
+            {
+                var sw = Stopwatch.StartNew();
+                for (long i = 0; i < _count; i++)
+                {
 
-        //        }
-        //        Console.WriteLine("No Sleep Consume Time:{0}", sw.Elapsed.ToString());
-        //    });
-        //    thread.IsBackground = true;
-        //    thread.Start();
-        //}
+                }
+                Console.WriteLine("No Sleep Consume Time:{0}", sw.Elapsed.ToString());
+            });
+            thread.IsBackground = true;
+            thread.Start();
+        }
 
-        //private static void ThreadSleepInThread()
-        //{
-        //    Thread thread = new Thread(() =>
-        //    {
-        //        var sw = Stopwatch.StartNew();
-        //        for (long i = 0; i < _count; i++)
-        //        {
-        //            Thread.Sleep(_timeout_ms);
-        //        }
-        //        Console.WriteLine("Thread Sleep Consume Time:{0}", sw.Elapsed.ToString());
-        //    });
-        //    thread.IsBackground = true;
-        //    thread.Start();
-        //}
+        private static void ThreadSleepInThread()
+        {
+            Thread thread = new Thread(() =>
+            {
+                var sw = Stopwatch.StartNew();
+                for (long i = 0; i < _count; i++)
+                {
+                    Thread.Sleep(_timeout_ms);
+                }
+                Console.WriteLine("Thread Sleep Consume Time:{0}", sw.Elapsed.ToString());
+            });
+            thread.IsBackground = true;
+            thread.Start();
+        }
 
-        //private static void SpinWaitInThread()
-        //{
-        //    Thread thread = new Thread(() =>
-        //    {
-        //        var sw = Stopwatch.StartNew();
-        //        for (long i = 0; i < _count; i++)
-        //        {
-        //            System.Threading.SpinWait.SpinUntil(() => true, _timeout_ms);
-        //        }
-        //        Console.WriteLine("SpinWait Consume Time:{0}", sw.Elapsed.ToString());
-        //    });
-        //    thread.IsBackground = true;
-        //    thread.Start();
-        //}
+        private static void SpinWaitInThread()
+        {
+            Thread thread = new Thread(() =>
+            {
+                var sw = Stopwatch.StartNew();
+                for (long i = 0; i < _count; i++)
+                {
+                    System.Threading.SpinWait.SpinUntil(() => true, _timeout_ms);
+                }
+                Console.WriteLine("SpinWait Consume Time:{0}", sw.Elapsed.ToString());
+            });
+            thread.IsBackground = true;
+            thread.Start();
+        }
 
         #endregion
     }

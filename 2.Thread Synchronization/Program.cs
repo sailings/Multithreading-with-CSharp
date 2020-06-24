@@ -167,24 +167,24 @@ namespace _2.Thread_Synchronization
         #endregion
 
         #region 2.5.CountDownEvent
-        //static CountdownEvent _countdown = new CountdownEvent(2);
-        //static void Main(string[] args)
-        //{
-        //    WriteLine("Starting two operations");
-        //    var t1 = new Thread(() => PerformOperation("Operation 1 is completed", 4));
-        //    var t2 = new Thread(() => PerformOperation("Operation 2 is completed", 8));
-        //    t1.Start();
-        //    t2.Start();
-        //    _countdown.Wait();
-        //    WriteLine("Both operations have been completed.");
-        //    _countdown.Dispose();
-        //}
-        //static void PerformOperation(string message, int seconds)
-        //{
-        //    Sleep(TimeSpan.FromSeconds(seconds));
-        //    WriteLine(message);
-        //    _countdown.Signal();
-        //}
+        static CountdownEvent _countdown = new CountdownEvent(2);
+        static void Main(string[] args)
+        {
+            WriteLine("Starting two operations");
+            var t1 = new Thread(() => PerformOperation("Operation 1 is completed", 4));
+            var t2 = new Thread(() => PerformOperation("Operation 2 is completed", 8));
+            t1.Start();
+            t2.Start();
+            _countdown.Wait();
+            WriteLine("Both operations have been completed.");
+            _countdown.Dispose();
+        }
+        static void PerformOperation(string message, int seconds)
+        {
+            Sleep(TimeSpan.FromSeconds(seconds));
+            WriteLine(message);
+            _countdown.Signal();
+        }
         #endregion
 
         #region 2.6.Barrier
@@ -282,11 +282,11 @@ namespace _2.Thread_Synchronization
 
         #region 2.8 Producer/Consumer
 
-        static void Main()
-        {
-            Form1 form1 = new Form1();
-            form1.ShowDialog();
-        }
+        //static void Main()
+        //{
+        //    Form1 form1 = new Form1();
+        //    form1.ShowDialog();
+        //}
 
         #endregion
     }

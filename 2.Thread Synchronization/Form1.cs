@@ -162,6 +162,10 @@ namespace _2.Thread_Synchronization
         //            Thread.Sleep(100);
         //    }
         //}
+        //private void btnManual_Click(object sender, EventArgs e)
+        //{ 
+
+        //}
         #endregion
 
         #region use BlockingCollection
